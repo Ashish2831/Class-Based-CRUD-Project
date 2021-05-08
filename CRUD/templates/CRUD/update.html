@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
+    <title>CRUD</title>
+
+    <style>
+        ul.errorlist {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        ul.errorlist li {
+            list-style-type: none;
+            color: #cc0000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center alert alert-danger">
+            Class Based View ModelForm CRUD Project
+        </h2>
+        <div class="row">
+            <div class="col-sm-8 offset-2">
+                <h4 class="text-center alert alert-info">Update Student</h4>
+                <form action="" method="POST" NOVALIDATE>
+                    {% csrf_token %}
+                    <table cellpadding="4" cellspacing="4">
+                        {% for message in messages %}
+                        <h4 class="text-success">{{ message }}</h4>
+                        {% endfor %}
+                        {% if success %}
+                        <h4 class="text-success">{{ success }}</h4>
+                        {% endif %}
+                        <tr>
+                            <p>{{ st.name.label }}</p>
+                            <p>
+                                {{ st.name }} {{ st.name.errors }}
+                            </p>
+                        </tr>
+                        <tr>
+                            <p>{{ st.email.label }}</p>
+                            <p>
+                                {{ st.email }} {{ st.email.errors }}
+                            </p>
+                        </tr>
+                        <tr>
+                            <p>{{ st.rollno.label }}</p>
+                            <p>
+                                {{ st.rollno }} {{ st.rollno.errors }}
+                            </p>
+                        </tr>
+                        <tr>
+                            <p>{{ st.password.label }}</p>
+                            <p>
+                                {{ st.password }} {{ st.password.errors }}
+                            </p>
+                        </tr>
+                        <tr>
+                            <p>{{ st.rpassword.label }}</p>
+                            <p>
+                                {{ st.rpassword }} {{ st.rpassword.errors }}
+                            </p>
+                        </tr>
+                    </table>
+                    <input class="btn btn-primary ml-1" type="submit" value="Update" />
+                    <a class="btn btn-info" href="{% url 'Home' %}">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

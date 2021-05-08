@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
+  <title>CRUD</title>
+  <style>
+    label,
+    h4,
+    h2 {
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    table {
+      margin: 0 auto;
+      width: 600px;
+    }
+
+    table tr th {
+      vertical-align: top;
+    }
+
+    ul.errorlist {
+      margin: 0px;
+      padding: 0px;
+    }
+
+    ul.errorlist li {
+      list-style-type: none;
+      color: #cc0000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center alert alert-danger">
+      Class Based View ModelForm CRUD Project
+    </h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <h4 class="text-center alert alert-info">Add New Student</h4>
+        <form action="" method="POST" novalidate>
+          {% csrf_token %}
+          <table cellpadding="4" cellspacing="4">
+            {% for message in messages %}
+            <h4 class="text-success">{{ message }}</h4>
+            {% endfor %}
+            {% if success %}
+            <h4 class="text-success">{{ success }}</h4>
+            {{ st.as_p }}
+            {% else %}
+            <tr>
+              <p>{{ st.name.label }}</p>
+              <p>
+                {{ st.name }} {{ st.name.errors }}
+              </p>
+            </tr>
+            <tr>
+              <p>{{ st.email.label }}</p>
+              <p>
+                {{ st.email }} {{ st.email.errors }}
+              </p>
+            </tr>
+            <tr>
+              <p>{{ st.rollno.label }}</p>
+              <p>
+                {{ st.rollno }} {{ st.rollno.errors }}
+              </p>
+            </tr>
+            <tr>
+              <p>{{ st.password.label }}</p>
+              <p>
+                {{ st.password }} {{ st.password.errors }}
+              </p>
+            </tr>
+            <tr>
+              <p>{{ st.rpassword.label }}</p>
+              <p>
+                {{ st.rpassword }} {{ st.rpassword.errors }}
+              </p>
+            </tr>
+            {% endif %}
+          </table>
+          <input class="btn btn-primary ml-1" type="submit" value="ADD" />
+        </form>
+      </div>
+      <div class="col-sm-8">
+        <h4 class="text-center alert alert-info">Student Model Data</h4>
+        {% if all %}
+        <table class="table table-hover border-white" cellpadding="8" cellspacing="8">
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Roll No</th>
+            <th>Password</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+          {% for stu in all %}
+          <tr>
+            <td>{{ stu.id }}</td>
+            <td>{{ stu.name }}</td>
+            <td>{{ stu.email }}</td>
+            <td>{{ stu.rollno }}</td>
+            <td>{{ stu.password }}</td>
+            <td>
+              <a class="btn btn-warning" href="{% url 'Update' stu.id %}">Update</a>
+            </td>
+            <td>
+              <a class="delete btn btn-danger" href="{% url 'Delete' stu.id %}">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+        {% else %}
+        <h5 class="text-center alert alert-warning">No Records</h5>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(".delete").click(function () {
+        con = confirm("Are you sure you want to delete this student data?");
+        if (con == false) {
+          event.preventDefault();
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
